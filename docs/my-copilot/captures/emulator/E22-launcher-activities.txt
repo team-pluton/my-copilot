@@ -1,0 +1,67 @@
+22 activities found:
+  Activity #0:
+    priority=1 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    com.android.car.settings/.Settings_Launcher_Homepage
+  Activity #1:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    ai.pleos.connecttokensampleapp/.ui.MainActivityCompose
+  Activity #2:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    ai.umos.car.evs/.CarEvsCameraPreviewActivity
+  Activity #3:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    ai.umos.drivingview/.DrivingViewActivity
+  Activity #4:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    ai.umos.maps.android.navigation.app/.MainActivity
+  Activity #5:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    ai.umos.setupwizard/.SetupWizardActivity
+  Activity #6:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    com.android.calendar/.AllInOneActivity
+  Activity #7:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    com.android.contacts/.activities.PeopleActivity
+  Activity #8:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    com.android.deskclock/.DeskClock
+  Activity #9:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+    com.android.gallery3d/.app.GalleryActivity
+  Activity #10:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.pleos.connectwebconsole/.FormFactorConsoleActivity
+  Activity #11:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.umos.ambientai/.HistoryActivity
+  Activity #12:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.umos.callandmessage/ai.umos.mainscreen.MainScreenActivity
+  Activity #13:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.umos.phoneprojection/.ui.MainActivity
+  Activity #14:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.umos.smartkeyconsole/.SmartKeyConsoleMainActivity
+  Activity #15:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    ai.umos.vehiclecontrol/.VehicleControlActivity
+  Activity #16:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    com.android.documentsui/.LauncherActivity
+  Activity #17:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    com.android.quicksearchbox/.SearchActivity
+  Activity #18:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    com.antutu.benchmark.full.lite/com.android.module.graphics.app.MainActivity
+  Activity #19:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    org.chromium.webview_shell/.WebViewBrowserActivity
+  Activity #20:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    app.commadrive/.app.MainActivity
+  Activity #21:
+    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+    app.commadrive.copilot/.CopilotActivity

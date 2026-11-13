@@ -1,0 +1,9 @@
+id,name,route_km,direction,restroom,parking,restaurant,cafe,baby_care,pet_area,charger_kw,charger_stalls,detour_km,detour_min,confidence,source,checked_on,note
+giheung,기흥휴게소,35,부산,1,1,1,,,,,,0.5,,UNKNOWN,,,
+anseong,안성휴게소,70,부산,1,1,1,1,,,,,0.3,2,UNKNOWN,"보도: 안성 서울·부산 양방향 초급속 (getcha 2025) — kW·대수 미확인",,
+cheonan,천안휴게소,95,부산,1,1,1,,,,,,0.6,,UNKNOWN,,,
+oksan,옥산휴게소,125,부산,1,1,1,1,,,,,0.4,,UNKNOWN,,,
+jukam,죽암휴게소,150,부산,1,1,1,,,,,,0.5,,UNKNOWN,"반려견 놀이터는 서울방향(정책브리핑 2021-12-03 · 더팩트 '죽암(서울)'). 부산방향은 미확인. 서울방향 급속 3기(정책브리핑) — 부산방향 미확인",2026-10-25,"이전 행은 놀이터를 부산방향으로 잘못 적었다(2026-10-25 정정)"
+hwanggan,황간휴게소,220,부산,1,1,1,,,,,,0.5,,UNKNOWN,,,
+gimcheon,김천휴게소,250,부산,1,1,1,1,,,,,0.3,2,UNKNOWN,,,
+chilgok,칠곡휴게소,290,부산,1,1,1,,,,,,0.7,,UNKNOWN,"보도: 충전기 수 전국 1위 (getcha) — kW·대수 미확인",,

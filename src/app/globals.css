@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+/*
+ * 두 벌의 색이 있다.
+ *
+ *  1) 사이트(소개·기획서·조작판) — 다크 고정. 심사장 프로젝터에서 밝은 배경은 눈을 피로하게 하고,
+ *     어두운 차량 프레임이 밝은 배경 위에 섬처럼 뜨는 것도 피한다. 회색 단계는 Pleos basic 스케일을
+ *     그대로 써서 셸과 톤이 이어지게 했다.
+ *  2) 차량 셸(.pleos) — Pleos 공식 System Color 토큰(research/PLEOS_PLATFORM.md 7절). 라이트/다크를
+ *     data-theme 으로 바꾼다. 셸 안의 색은 반드시 --p-* 토큰만 쓴다 — 바깥 색이 새어 들어가면
+ *     "공식 톤" 이라는 주장이 무너진다.
+ */
+@theme {
+  --color-bg: #131417;            /* basic_00 (dark) */
+  --color-surface: #1d1e21;       /* basic_50 */
+  --color-surface-2: #313236;     /* basic_100 */
+  --color-line: #44464e;          /* basic_200 */
+  --color-text: #ffffff;
+  --color-muted: #a4a8ae;         /* basic_400 — 양 테마 공통값 */
+  --color-accent: #0082ff;        /* informative_positive (dark) */
+  --color-accent-strong: #0064ff; /* informative_positive (light) */
+  --color-good: #00e074;          /* informative_active (dark) */
+  --color-warn: #f5b83d;          /* 공식 경고색이 없다 — 우리 값 */
+  --color-bad: #ff4c28;           /* informative_negative (dark) */
+
+  /* 공식 폰트는 Asta Sans (Google Fonts, 한/영 300–800). layout.tsx 가 link 로 싣는다 */
+  --font-sans: "Asta Sans", -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+/* 셸 토큰을 Tailwind 유틸(bg-p-surface, text-p-text2 …)로 쓰기 위한 참조. 값은 .pleos 가 정한다 */
+@theme inline {
+  --color-p-bg: var(--p-bg);
+  --color-p-bg2: var(--p-bg2);
+  --color-p-popup: var(--p-popup);
+  --color-p-surface: var(--p-surface);
+  --color-p-surface-low: var(--p-surface-low);
+  --color-p-surface-high: var(--p-surface-high);
+  --color-p-surface-accent: var(--p-surface-accent);
+  --color-p-text: var(--p-text);
+  --color-p-text2: var(--p-text2);
+  --color-p-text3: var(--p-text3);
+  --color-p-text4: var(--p-text4);
+  --color-p-btn: var(--p-btn);
+  --color-p-btn-pressed: var(--p-btn-pressed);
+  --color-p-filled: var(--p-filled);
+  --color-p-filled-text: var(--p-filled-text);
+  --color-p-positive: var(--p-positive);
+  --color-p-negative: var(--p-negative);
+  --color-p-active: var(--p-active);
+  --color-p-charging: var(--p-charging);
+  --color-p-auto: var(--p-auto);
+  --color-p-line: var(--p-line);
+}
+
+html {
+  color-scheme: dark;
+  background: var(--color-bg);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum";
+}
+
+/* ───────────────────────── 차량 셸 ─────────────────────────
+ * 모든 치수는 Connect-S 17" 화면(2560×1440) 의 px 로 적고, 실제 크기는 컨테이너 폭에 비례한다.
+ * 1 car-px = --u. 셸 전체가 루트면 2560 으로, 앱 창만 보일 때는 창 폭(840 / 1700)으로 나눈다.
+ * 글자 크기도 전부 --u 배수라, 창을 어떤 크기로 띄워도 공식 타이포 비율이 유지된다.
+ */
+.pleos {
+  container-type: inline-size;
+  --u: calc(100cqw / 2560);
+  user-select: none;
+  font-family: var(--font-sans);
+  color: var(--p-text);
+}
+.pleos-window-only {
+  container-type: inline-size;
+}
+.pleos-window-only[data-orientation="portrait"] { --u: calc(100cqw / 840); }
+.pleos-window-only[data-orientation="landscape"] { --u: calc(100cqw / 1700); }
+
+/* Pleos System Color — Light */
+.pleos[data-theme="light"] {
+  color-scheme: light;
+  --p-bg: #f7f8fa;             /* background_primary = basic_50 */
+  --p-bg2: #ffffff;            /* background_secondary = basic_00 */
+  --p-popup: #ffffff;          /* background_popup */
+  --p-surface: #ffffff;        /* surface_basic = basic_00 */
+  --p-surface-low: #f7f8fa;    /* surface_low = basic_50 */
+  --p-surface-high: #edeef2;   /* surface_high = basic_100 */
+  --p-surface-accent: #e0e1e6; /* surface_accent = basic_200 */
+  --p-text: #131417;           /* text_primary = static_dark_100 */
+  --p-text2: rgb(19 20 23 / 0.84);
+  --p-text3: rgb(19 20 23 / 0.64);
+  --p-text4: rgb(19 20 23 / 0.32);
+  --p-btn: #edeef2;            /* button_basic — 공식 alpha_dark_50 은 흰 면 위에서 안 보여 surface_high 톤 */
+  --p-btn-pressed: #e0e1e6;
+  --p-filled: #44464e;         /* button_filled_enabled = basic_600 */
+  --p-filled-text: #ffffff;
+  --p-positive: #0064ff;
+  --p-negative: #fe3d16;
+  --p-active: #02c265;
+  --p-charging: #00db25;
+  --p-auto: #5a46fa;
+  --p-line: rgb(19 20 23 / 0.1);
+}
+/* Pleos System Color — Dark */
+.pleos[data-theme="dark"] {
+  color-scheme: dark;
+  --p-bg: #1d1e21;
+  --p-bg2: #131417;
+  --p-popup: #313236;
+  --p-surface: #1d1e21;
+  --p-surface-low: #131417;
+  --p-surface-high: #313236;
+  --p-surface-accent: #44464e;
+  --p-text: #ffffff;
+  --p-text2: rgb(255 255 255 / 0.84);
+  --p-text3: rgb(255 255 255 / 0.64);
+  --p-text4: rgb(255 255 255 / 0.32);
+  --p-btn: #313236;
+  --p-btn-pressed: #44464e;
+  --p-filled: #e0e1e6;
+  --p-filled-text: #131417;
+  --p-positive: #0082ff;
+  --p-negative: #ff4c28;
+  --p-active: #00e074;
+  --p-charging: #00db25;
+  --p-auto: #6a57ff;
+  --p-line: rgb(255 255 255 / 0.1);
+}
+
+/* 공식 타이포 계층 (2560 기준 px / 행간). Headline·Title 은 Bold, Body Strong 은 600 */
+.t-headline-l { font-size: calc(60 * var(--u)); line-height: calc(80 * var(--u)); font-weight: 800; letter-spacing: -0.01em; }
+.t-headline-m { font-size: calc(56 * var(--u)); line-height: calc(72 * var(--u)); font-weight: 800; letter-spacing: -0.01em; }
+.t-headline-s { font-size: calc(48 * var(--u)); line-height: calc(64 * var(--u)); font-weight: 700; letter-spacing: -0.01em; }
+.t-title-l    { font-size: calc(40 * var(--u)); line-height: calc(52 * var(--u)); font-weight: 700; }
+.t-title-m    { font-size: calc(36 * var(--u)); line-height: calc(44 * var(--u)); font-weight: 700; }
+.t-title-s    { font-size: calc(32 * var(--u)); line-height: calc(40 * var(--u)); font-weight: 700; }
+.t-body-l     { font-size: calc(30 * var(--u)); line-height: calc(38 * var(--u)); font-weight: 400; }
+.t-body-m     { font-size: calc(28 * var(--u)); line-height: calc(36 * var(--u)); font-weight: 400; }
+.t-body-s     { font-size: calc(26 * var(--u)); line-height: calc(34 * var(--u)); font-weight: 400; }
+.t-label-m    { font-size: calc(24 * var(--u)); line-height: calc(28 * var(--u)); font-weight: 400; }
+.t-label-s    { font-size: calc(20 * var(--u)); line-height: calc(24 * var(--u)); font-weight: 400; }
+/* 공식 계층 밖 — 상태 화면의 큰 숫자 하나. 드라이빙뷰 속도계와 같은 급 */
+.t-display    { font-size: calc(136 * var(--u)); line-height: calc(136 * var(--u)); font-weight: 800; letter-spacing: -0.03em; }
+.t-strong { font-weight: 600; }
+
+/* 공식 그림자 (Shadow L1~L3) */
+.sh-1 { box-shadow: 0 calc(6 * var(--u)) calc(24 * var(--u)) rgb(0 0 0 / 0.08); }
+.sh-2 { box-shadow: 0 calc(8 * var(--u)) calc(32 * var(--u)) rgb(0 0 0 / 0.16), 0 calc(2 * var(--u)) calc(2 * var(--u)) rgb(0 0 0 / 0.08); }
+.sh-3 { box-shadow: 0 calc(20 * var(--u)) calc(40 * var(--u)) rgb(0 0 0 / 0.24), 0 calc(2 * var(--u)) calc(4 * var(--u)) rgb(0 0 0 / 0.2); }
+
+/* 화면 전환 — 짧게. 주행 중 화면에서 움직임은 최소여야 한다(DO) */
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(calc(12 * var(--u))); }
+  to   { opacity: 1; transform: none; }
+}
+.screen-in { animation: screen-in 180ms ease-out both; }
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, calc(16 * var(--u))); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.toast-in { animation: toast-in 200ms ease-out both; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 0.8s linear infinite; }
+@keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1 } 50% { transform: scale(1.6); opacity: .35 } }
+/* SVG 안에서 transform-origin: center 는 기본이 viewBox 기준이라 원이 엉뚱한 곳으로 튄다 — fill-box 로 자기 중심 */
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-in, .toast-in, .pulse-dot { animation: none; }
+}
+
+/* 전체화면 — 셸만 검은 바탕 가운데에 */
+.shell-stage:fullscreen {
+  background: #000;
+  display: grid;
+  place-items: center;
+  padding: 2vmin;
+}
+.shell-stage:fullscreen > * {
+  width: min(100%, calc((100vh - 4vmin) * 16 / 9));
+}
+
+/* 기획서 인쇄 — 사이트 토큰을 라이트 값으로 뒤집는다. 유틸·SVG 그림이 전부 var() 를 참조하므로 여기 한 번이면 된다 */
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-surface: #f7f8fa;
+    --color-surface-2: #edeef2;
+    --color-line: #c7c9ce;
+    --color-text: #131417;
+    --color-muted: #686a72;
+    --color-accent: #0064ff;
+    --color-accent-strong: #0064ff;
+    --color-good: #02c265;
+    --color-bad: #fe3d16;
+  }
+  html, body { background: #fff; color: #131417; }
+  .text-white { color: #fff !important; }
+  .print-avoid { break-inside: avoid; }
+  main { max-width: none; padding: 0; }
+  h2 { break-after: avoid; }
+  .no-print { display: none !important; }
+  .print-break { break-before: page; }
+  a { color: inherit; text-decoration: none; }
+}

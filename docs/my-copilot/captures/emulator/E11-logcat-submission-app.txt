@@ -1,0 +1,47 @@
+10-29 07:12:14.573 I/[GAAS][SDK]TextToSpeech(24151): [main]initialize - ON_DEVICE with listener
+10-29 07:12:14.573 I/[GAAS][SDK]TtsServiceManager(24151): [main]createTts ON_DEVICE
+10-29 07:12:14.581 D/[GAAS][SDK]OnDeviceStreamTts(24151): [main]connectService with listener
+10-29 07:12:14.607 D/[Pleos][SDK]Vehicle(24151): [main]initialize
+10-29 07:12:14.607 D/[Pleos][SDK]b(24151): [main]connectService
+10-29 07:12:14.608 D/[Pleos][SDK]b(24151): [main]Service Connect Api called Intent { act=ai.pleos.playground.vehicle.VEHICLE_START cmp=ai.pleos.playground.service.vehicle/.VehicleService }
+10-29 07:12:15.068 D/[Pleos][SDK]a(24151): [main]hasPropertyIdCount : 0
+10-29 07:12:15.068 D/[Pleos][SDK]a(24151): [main]addListener: app.commadrive.adapter.PleosVehicleStateProvider$socListener$1@f153462
+10-29 07:12:15.068 D/[Pleos][SDK]a(24151): [main]hasPropertyIdCount : 0
+10-29 07:12:15.070 I/[Pleos][SDK]b(24151): [main]getCapabilityConfig instance ai.pleos.playground.vehicle.api.implement.EvBatteryImpl@f1586b0 , propId TRIP_EV_EFFICIENCY
+10-29 07:12:15.071 I/[Pleos][SDK]b(24151): [main]getCapabilityConfig request
+10-29 07:12:15.089 D/[NaviHelper][SDK]NaviHelper(24151): [main]initialize with callback
+10-29 07:12:15.089 D/[NaviHelper][SDK]c(24151): [main]connectService
+10-29 07:12:16.024 D/[GAAS][SDK]OnDeviceStreamTts(24151): [main]onServiceConnected
+10-29 07:12:16.030 D/[GAAS][SDK]OnDeviceStreamTts(24151): [main]registerCallback
+10-29 07:12:16.031 I/[GAAS][SDK]TextToSpeech(24151): [main]updateLocale ko_KR
+10-29 07:12:16.033 I/[Pleos][SDK]b(24151): [main]ServiceConnected call
+10-29 07:12:16.034 I/[NaviHelper][SDK]c(24151): [main]onServiceConnected
+10-29 07:12:16.034 D/[GAAS][SDK]OnDeviceStreamTts(24151): [DefaultDispatcher-worker-1]setLocale ko_KR app.commadrive
+10-29 07:12:16.036 I/[NaviHelper][SDK]c(24151): [main]getServiceVersion = 3.0.4
+10-29 07:12:16.036 D/[NaviHelper][SDK]c(24151): [main]registerCallbackV3
+10-29 07:12:16.036 D/[NaviHelper][SDK]NaviHelper(24151): [main]addListener app.commadrive.adapter.PleosNavigationProvider$stateListener$1@21c1c56
+10-29 07:12:16.036 I/[NaviHelper][SDK]NaviHelper(24151): [main]getRouteStateInfo
+10-29 07:12:16.039 I/[NaviHelper][SDK]NaviHelper(24151): [main]getWaypointInfo
+10-29 07:12:16.039 I/[NaviHelper][SDK]NaviHelper(24151): [main]getDestinationInfo
+10-29 07:12:16.128 I/[NaviHelper][SDK]b(24151): [binder:24151_1]onWayPointInfo
+10-29 07:12:16.171 I/[NaviHelper][SDK]b(24151): [binder:24151_1]onDestinationInfo
+10-29 07:12:16.195 I/[NaviHelper][SDK]b(24151): [binder:24151_1]onRouteStateInfo
+10-29 07:12:16.209 D/[Pleos][SDK]a(24151): [binder:24151_3]saveRequest() called with: propIdName = EV_BATTERY_SOC, areaType = 0
+10-29 07:12:16.209 I/[Pleos][SDK]b(24151): [binder:24151_3]getCapabilityConfig propId TRIP_EV_EFFICIENCY
+10-29 07:12:16.221 D/[Pleos][SDK]a(24151): [binder:24151_3]onChangeEvent() called with: propIdName = EV_BATTERY_SOC, areaId = 0, value = 100
+10-29 07:12:16.238 I/[Pleos][SDK]b(24151): [binder:24151_3]getProperty_onResult eventPropKey INFO_EV_BATTERY_CAPACITY eventAreaId 0 eventValue 77400.0
+10-29 07:12:55.079 D/[GAAS][SDK]OnDeviceStreamTts(24151): [DefaultDispatcher-worker-1]doSpeak(app.commadrive) text=충전 없이 도착할 수 있어요. 휴식만 계획할게요., isFinal=true
+10-29 07:12:55.114 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onResponse UpdateTtsReady 
+10-29 07:12:55.114 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onReady
+10-29 07:12:55.173 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onResponse UpdateTtsStart 
+10-29 07:12:55.173 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onStart
+10-29 07:13:02.664 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onResponse UpdateTtsDone 
+10-29 07:13:02.664 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_4]onDone
+10-29 07:13:31.987 D/[NaviHelper][SDK]NaviHelper(24151): [main]addListener app.commadrive.adapter.PleosNavigationProvider$addStop$2$1$listener$1@6fd1d33
+10-29 07:13:31.993 I/[NaviHelper][SDK]NaviHelper(24151): [main]addWaypoint
+10-29 07:13:41.988 D/[NaviHelper][SDK]NaviHelper(24151): [main]removeListener
+10-29 07:13:41.991 D/[GAAS][SDK]OnDeviceStreamTts(24151): [DefaultDispatcher-worker-1]doSpeak(app.commadrive) text=내비게이션에 연결하지 못했어요. 지금 경로는 그대로예요., isFinal=true
+10-29 07:13:41.998 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_1]onResponse UpdateTtsReady 
+10-29 07:13:41.998 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_1]onReady
+10-29 07:13:42.002 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_1]onResponse UpdateTtsStart 
+10-29 07:13:42.002 D/[GAAS][SDK]TtsCallback(24151): [binder:24151_1]onStart

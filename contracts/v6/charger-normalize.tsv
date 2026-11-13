@@ -1,0 +1,9 @@
+case	statId	chgerId	statNm	chgerType	powerType	stat	statUpdDt	lat	lng	parkingFree	note	exp_key	exp_connectors	exp_kw	exp_status	exp_updated_ms	exp_lat	exp_parking	exp_note
+정상-콤보	ST000001	01	기흥휴게소(부산)	04	급속(100kWh동시)	2	20260101120000	37.2	127.1	Y		ST000001/01	DC_COMBO	100	AVAILABLE	1767236400000	37.2	true	-
+소수-출력	ST000001	02	기흥휴게소(부산)	06	급속(99.9kW)	3	20260101120000	37.2	127.1	N	공사로 인해 이용 불가	ST000001/02	DC_CHADEMO,AC3,DC_COMBO	99.9	CHARGING	1767236400000	37.2	false	공사로 인해 이용 불가
+모르는-코드	ST000002	01	안성	77	완속	8	20261301120000	0	abc			ST000002/01	?	?	UNKNOWN	?	?	?	-
+빈-ID	 	01	빈아이디	04	급속(100kW)	2	20260101120000	37.2	127.1			-	?	?	UNKNOWN	?	?	?	-
+같은-chgerId-다른-충전소	ST000003	01	천안	02	완속(7kW)	4	20260229120000	36.7	127.2			ST000003/01	AC_SLOW	7	OUT_OF_SERVICE	?	36.7	?	-
+공식-버스전용-11	ST000004	01	칠곡휴게소(부산)	11	급속(200kW)	2	20260101120000	37.2	127.1	Y		ST000004/01		200	AVAILABLE	1767236400000	37.2	true	-
+공식-예약중-6	ST000005	01	김천휴게소(부산)	04	급속(100kW)	6	20260101120000	37.2	127.1	Y		ST000005/01	DC_COMBO	100	UNKNOWN	1767236400000	37.2	true	-
+공식-알수없음-0	ST000005	02	김천휴게소(부산)	04	급속(100kW)	0	20260101120000	37.2	127.1	Y		ST000005/02	DC_COMBO	100	UNKNOWN	1767236400000	37.2	true	-

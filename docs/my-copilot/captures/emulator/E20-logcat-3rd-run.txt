@@ -1,0 +1,3 @@
+--------- beginning of main
+10-29 06:57:57.618 D/CoPilotCabin(13794): CabinState(hvacSetC=23.0, doorOpen=false, doorLocked=true, seatVentLevel=1, seatHeatLevel=-2)
+10-29 06:58:22.412 D/CoPilotCabin(13794): CabinState(hvacSetC=23.0, doorOpen=true, doorLocked=true, seatVentLevel=1, seatHeatLevel=-2)

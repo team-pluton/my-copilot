@@ -1,0 +1,37 @@
+# Node / Next
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Android / Gradle
+build/
+.gradle/
+local.properties
+.idea/
+*.iml
+
+.DS_Store
+
+.vercel
+
+# Pleos SDK · android.jar (scripts/fetch-pleos-sdk.sh 가 받는다)
+.sdk/
+adapters/build/
+adapters/.gradle/
+core/build/
+core/.gradle/
+
+# Android 앱 서명 키 — 절대 커밋하지 않는다 (android/app/build.gradle.kts 주석)
+android/keystore.properties
+*.jks
+*.keystore
+
+# Kotlin 컴파일러 캐시
+.kotlin/
+
+# 비밀 값(API 키 등) — 커밋 금지 (2026-11-09)
+.env
+.env.*
+!.env.example

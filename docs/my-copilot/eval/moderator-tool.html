@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>평가 진행자 도구</title>
+<!--
+  블라인드 비교 평가의 진행자용 — 과제별 타이머 · 탭 수 · 도움 횟수 · 되찾기(사람/앱) · 결과 JSON.
+  브라우저에서 파일을 그냥 연다(서버 불필요). 저장은 이 브라우저의 localStorage 뿐이라 세션이 끝나면 "JSON 복사"로 꺼내 RECORD.md 옆에 둔다.
+  평가자 이름을 넣는 칸은 일부러 없다 — 번호만.
+-->
+<style>
+  :root { --bg:#f7f8fa; --card:#fff; --text:#131417; --muted:#6b6f7a; --line:#e0e1e6; --accent:#0064ff; --ok:#02c265; --warn:#fe3d16; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1d1e21; --card:#2a2b2f; --text:#fff; --muted:#a2a5ad; --line:#44464e; --accent:#0082ff; --ok:#00e074; --warn:#ff4c28; } }
+  :root[data-theme="dark"] { --bg:#1d1e21; --card:#2a2b2f; --text:#fff; --muted:#a2a5ad; --line:#44464e; --accent:#0082ff; --ok:#00e074; --warn:#ff4c28; }
+  * { box-sizing:border-box } body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; padding:16px }
+  main { max-width:720px; margin:0 auto; display:grid; gap:12px }
+  h1 { font-size:20px; margin:0 } h2 { font-size:15px; margin:0 0 8px; color:var(--muted); font-weight:600 }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center }
+  label { font-size:14px; color:var(--muted) } input, select { font:inherit; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--text) }
+  button { font:inherit; padding:10px 14px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--text); cursor:pointer; min-height:44px }
+  button.primary { background:var(--accent); color:#fff; border-color:transparent } button.ok { background:var(--ok); color:#fff; border-color:transparent } button.warn { background:var(--warn); color:#fff; border-color:transparent }
+  button.big { font-size:22px; min-height:72px; flex:1 } button:disabled { opacity:.45; cursor:default }
+  .timer { font-variant-numeric:tabular-nums; font-size:40px; font-weight:800 } .n { font-size:28px; font-weight:800; font-variant-numeric:tabular-nums }
+  table { width:100%; border-collapse:collapse; font-size:14px } th, td { text-align:left; padding:6px 4px; border-bottom:1px solid var(--line) } th { color:var(--muted); font-weight:600 }
+  textarea { width:100%; min-height:120px; font:13px/1.4 ui-monospace, monospace; background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px }
+  .muted { color:var(--muted); font-size:13px }
+</style>
+</head>
+<body>
+<main>
+  <h1>평가 진행자 도구</h1>
+  <p class="muted">과제 하나마다 [시작] → 평가자가 탭할 때마다 [탭] → 끝나면 [성공]/[도움 받고 성공]/[포기]. 결과는 이 브라우저에만 남는다 — 세션 끝에 JSON 을 복사해 두세요. 평가자 이름은 적지 않습니다.</p>
+
+  <section class="card">
+    <h2>세션</h2>
+    <div class="row">
+      <label>평가자 번호 <input id="pid" type="number" min="1" value="1" style="width:80px"></label>
+      <label>순서 <select id="order"><option value="X먼저">X 먼저</option><option value="Y먼저">Y 먼저</option></select></label>
+      <label>지금 제품 <select id="product"><option value="X">제품 X</option><option value="Y">제품 Y</option><option value="고유">고유 과제(MY CO-PILOT)</option></select></label>
+      <label>과제 <select id="task">
+        <option value="이해도">첫 화면 10초</option>
+        <option value="1 충전이 필요한가">1 충전이 필요한가</option>
+        <option value="2 어디서 설까">2 어디서 설까</option>
+        <option value="3 대기가 길어지면">3 대기가 길어지면</option>
+        <option value="고유1 출발 준비">고유1 출발 준비</option>
+        <option value="고유2 하차 확인">고유2 하차 확인</option>
+        <option value="고유3 프로필">고유3 프로필</option>
+      </select></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>진행 중</h2>
+    <div class="row" style="justify-content:space-between">
+      <div class="timer" id="clock">0.0</div>
+      <div class="row"><div><span class="muted">탭</span> <span class="n" id="taps">0</span></div><div><span class="muted">도움</span> <span class="n" id="helps">0</span></div><div><span class="muted">되찾기 사람/앱</span> <span class="n" id="backs">0</span>/<span class="n" id="repeats">0</span></div></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="primary big" id="start">시작</button>
+      <button class="big" id="tap" disabled>탭 +1</button>
+      <button class="big" id="help" disabled>도움 +1</button>
+      <button id="back" disabled>되찾기(사람) +1</button>
+      <button id="repeat" disabled>같은 안내 반복(앱) +1</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="ok" id="done" disabled>성공</button>
+      <button id="doneHelp" disabled>도움 받고 성공</button>
+      <button class="warn" id="giveup" disabled>포기</button>
+      <button id="undo">마지막 탭 −1</button>
+    </div>
+    <p class="muted" id="hint">시작을 누르면 타이머가 돕니다. 과제 3 은 2분에서 포기로 기록합니다.</p>
+  </section>
+
+  <section class="card">
+    <h2>기록 (이 브라우저)</h2>
+    <table><thead><tr><th>#</th><th>제품</th><th>과제</th><th>결과</th><th>탭</th><th>도움</th><th>되찾기</th><th>초</th><th></th></tr></thead><tbody id="rows"></tbody></table>
+    <div class="row" style="margin-top:10px">
+      <button id="copy">JSON 복사</button>
+      <button id="download">JSON 내려받기</button>
+      <button id="clear">이 브라우저 기록 비우기</button>
+    </div>
+    <textarea id="json" readonly aria-label="결과 JSON"></textarea>
+  </section>
+</main>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const KEY = "copilot-eval-records";
+  let records = [];
+  try { records = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { records = []; }
+  let run = null, raf = 0;
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(records)); } catch {} render(); };
+  const fmt = (ms) => (ms / 1000).toFixed(1);
+  const tick = () => { if (!run) return; $("clock").textContent = fmt(performance.now() - run.t0); raf = requestAnimationFrame(tick); };
+  const setRunning = (on) => { for (const id of ["tap", "help", "back", "repeat", "done", "doneHelp", "giveup"]) $(id).disabled = !on; $("start").disabled = on; };
+  $("start").onclick = () => { run = { t0: performance.now(), taps: 0, helps: 0, backs: 0, repeats: 0 }; $("taps").textContent = 0; $("helps").textContent = 0; $("backs").textContent = 0; $("repeats").textContent = 0; setRunning(true); tick(); };
+  $("tap").onclick = () => { if (run) $("taps").textContent = ++run.taps; };
+  $("undo").onclick = () => { if (run && run.taps > 0) $("taps").textContent = --run.taps; };
+  $("help").onclick = () => { if (run) $("helps").textContent = ++run.helps; };
+  $("back").onclick = () => { if (run) $("backs").textContent = ++run.backs; };
+  $("repeat").onclick = () => { if (run) $("repeats").textContent = ++run.repeats; };
+  const finish = (result) => {
+    if (!run) return;
+    cancelAnimationFrame(raf);
+    records.push({ at: new Date().toISOString(), participant: Number($("pid").value), order: $("order").value, product: $("product").value, task: $("task").value, result, taps: run.taps, helps: run.helps, backs: run.backs, repeats: run.repeats, seconds: Number(fmt(performance.now() - run.t0)) });
+    run = null; setRunning(false); $("clock").textContent = "0.0"; save();
+  };
+  $("done").onclick = () => finish("성공"); $("doneHelp").onclick = () => finish("도움 받고 성공"); $("giveup").onclick = () => finish("포기");
+  $("copy").onclick = async () => { try { await navigator.clipboard.writeText($("json").value); $("copy").textContent = "복사됨"; setTimeout(() => $("copy").textContent = "JSON 복사", 1200); } catch { $("json").select(); } };
+  $("download").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([$("json").value], { type: "application/json" })); a.download = `eval-p${$("pid").value}-${new Date().toISOString().slice(0, 10)}.json`; a.click(); };
+  $("clear").onclick = () => { if (confirm("이 브라우저의 기록을 전부 지웁니다. JSON 을 복사해 두었나요?")) { records = []; save(); } };
+  function render() {
+    $("rows").innerHTML = records.map((r, i) => `<tr><td>${r.participant}</td><td>${r.product}</td><td>${r.task}</td><td>${r.result}</td><td>${r.taps}</td><td>${r.helps}</td><td>${r.backs ?? 0}/${r.repeats ?? 0}</td><td>${r.seconds}</td><td><button data-i="${i}" class="del" style="min-height:32px;padding:4px 8px">지움</button></td></tr>`).join("");
+    for (const b of document.querySelectorAll(".del")) b.onclick = () => { records.splice(Number(b.dataset.i), 1); save(); };
+    $("json").value = JSON.stringify(records, null, 1);
+  }
+  render();
+})();
+</script>
+</body>
+</html>
