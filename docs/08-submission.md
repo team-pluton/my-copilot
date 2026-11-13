@@ -10,7 +10,7 @@
 |---|---|---|
 | 접수양식 01~04 — 필수 | `docs/submission/MY-CO-PILOT_접수양식_02작성.docx` | 02 작성 끝(2026-11-13 재생성 · 작성자 메타데이터 비움 · Word 렌더링 **미확인**) · **01·03·04 기입·서명은 오너** |
 | 시연 영상 — 선택(가산점) | Pleos Connect Emulator 녹화(실제 SDK · 실제 API · 시연 데이터 구간 자막) | `docs/video/MY-CO-PILOT_demo_v1.mp4`(2분 38초 · 2026-11-13 장면 1 을 E33 수정본으로 다시 녹화) |
-| GitHub 저장소 — 선택(가산점) | 소스 + `apk/플루톤_MY-CO-PILOT_release.apk`(SHA-256 `cb8e4457…`, E33) + README | 익명 스냅샷 `<local>/portfolio/my-copilot-submit`(main = 출품본 · arrive-ready-dev = 개발 브랜치) · **푸시 전** |
+| GitHub 저장소 — 선택(가산점) | 소스 + `apk/플루톤_MY-CO-PILOT_release.apk`(SHA-256 `cb8e4457…`, E33) + README | https://github.com/team-pluton/my-copilot (공개 · main = 출품본 · arrive-ready-dev = 개발 브랜치 · 2026-11-13 푸시) — Activity 기록에 푸시한 계정명이 남음 |
 | 숏폼 링크 — 선택(가산점 없음) | 양식 8번 | 게시 전 |
 
 양식 02 를 고치면: `form-content.json` 수정 → `python -I scripts/submission/fill_form02.py "docs/submission/쉼표DRIVE_접수양식_02작성.docx" docs/submission/form-content.json "docs/submission/MY-CO-PILOT_접수양식_02작성.docx"`.
