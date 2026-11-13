@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      MY CO-PILOT — Pleos Connect 차량용 앱(1차 출품작, 2026-11-09). 최종 실행 대상은 Pleos Connect Emulator · 지원 차량이다.
+      Automotive 기기에서만 실제 차량 신호를 읽고(VehicleBridge), 그 밖에서는 모의 차량으로 돈다(화면에 늘 "모의").
+
+      차량용 선언 — Android Studio Automotive 템플릿과 같은 방식. uses-feature 는 마켓 배포 필터이고 adb 설치는 막지 않는다.
+      Pleos App Market 이 이 선언을 어떻게 쓰는지는 미확인(설명회).
+    -->
+    <uses-feature android:name="android.hardware.type.automotive" android:required="true" />
+
+    <!-- AAOS Car API — 주행 신호(읽기만). 속도 = CAR_SPEED · 기어·주차 브레이크 = CAR_POWERTRAIN (AaosJourneySignalSource) -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <!-- Pleos — 배터리·효율 CAR_ENERGY · 용량 CAR_INFO (CarLink, 출품 앱과 같은 근거) · 내비 NAVI_ROUTE · 음성 TTS_SERVICE -->
+    <uses-permission android:name="pleos.car.permission.CAR_ENERGY" />
+    <uses-permission android:name="pleos.car.permission.CAR_INFO" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <!-- 원탭 다음 이동(V5, 2026-11-03) — NaviHelper.requestRoute @RequiresPermission. 사용자 승인 뒤에만 부른다(RouteHandoff) -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+    <!-- V6 — 충전소 프록시(127.0.0.1 만 평문 허용, res/xml/network_security.xml) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <!-- 공조·도어·시트 **조회**(PleosCabinStateSource, 2026-10-29 에뮬레이터에서 처음 연결) -->
+    <uses-permission android:name="pleos.car.permission.CAR_CLIMATE" />
+    <uses-permission android:name="pleos.car.permission.CAR_DOORS" />
+    <uses-permission android:name="pleos.car.permission.CAR_SEATS" />
+    <!--
+      공조 온도·시트 **제어**(PleosCabinControl) — 승인 하나 뒤에만. 에뮬레이터에서 CONTROL_* 가 protectionLevel normal(선언만으로 허용)임을 확인하고
+      2026-10-29 선언했다. 실차·App Market 에서 허용되는지는 미확인 — 거부되면 화면은 "제어 권한 없음 · 차량에서 직접"으로 남는다.
+    -->
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" />
+    <uses-permission android:name="pleos.car.permission.CONTROL_CAR_SEATS" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:networkSecurityConfig="@xml/network_security"
+        android:icon="@mipmap/ic_launcher"
+        android:label="MY CO-PILOT"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CommaDrive">
+        <!-- 차량에만 있는 플랫폼 라이브러리 — 없는 기기(폰)에서도 설치되게 required=false, 코드는 Automotive 기능을 확인한 뒤에만 쓴다 -->
+        <uses-library android:name="android.car" android:required="false" />
+        <!--
+          방향을 고정하지 않는다 — 세로(840×1184dp, 창 2개)가 기본, 가로(1700×1184dp)는 확장. 창 크기는 시스템이 정한다.
+          창이 바뀌어도 상태를 잃지 않게 configChanges 로 직접 받는다. 키보드를 쓰지 않는다(주행 중 NO_KEYBOARD).
+        -->
+        <activity
+            android:name="app.commadrive.copilot.CopilotActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|density|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true">
+            <!-- singleTask(E28, 2026-11-11): 셸 아이콘으로 돌아올 때 화면이 하나 더 쌓여 새 화면이 저장된 Mission 에서 복원되며 '경로 요청 중·확인됨'이 사라졌다. 기존 화면으로 돌아온다 -->
+            <!--
+              주행 중 사용(DO) 선언 — AAOS 표준 방식. Pleos 공식 문서: DO 를 선언하지 않으면 주행 중 사용 불가(research 5절).
+              Pleos 의 DO 선언 **절차**(매니페스트만인지 · 마켓 심사인지)는 미확인 — 10/28 설명회 질문 1.
+              주행 중 화면은 CarUxRestrictions 를 지킨다: 한 줄 상태 + 음성, 버튼·입력 없음.
+            -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

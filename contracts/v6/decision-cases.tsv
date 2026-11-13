@@ -1,0 +1,16 @@
+case	powertrain	soc	capacity	passengers	feed	traveled	rows	rejected	exp_kind	exp_top	exp_alts	exp_check
+기본-시연	EV	68	77400	CHILD,PET	OK	0	-	-	RECOMMEND	hwanggan	geumgang,jukam	-
+EV아님-PHEV	PHEV	68	77400	CHILD,PET	OK	0	-	-	NOT_APPLICABLE	-	-	-
+동력원-모름	UNKNOWN	68	77400	CHILD,PET	OK	0	-	-	NOT_APPLICABLE	-	-	-
+용량-이상	EV	68	5	CHILD,PET	OK	0	-	-	CANNOT_JUDGE	-	-	-
+충전-불필요	EV	100	200000	-	OK	0	-	-	NO_CHARGE_NEEDED	-	-	-
+API-실패	EV	68	77400	CHILD,PET	FAILED	0	-	-	NO_RELIABLE	-	-	hwanggan,geumgang,jukam
+먼-황간-사용중-순위유지	EV	68	77400	CHILD,PET	OK	0	MOCK0003/01=3;MOCK0003/02=3	-	RECOMMEND	hwanggan	geumgang,jukam	-
+황간-점검	EV	68	77400	CHILD,PET	OK	0	MOCK0003/01=5;MOCK0003/02=5	-	RECOMMEND	geumgang	jukam	-
+규격-불일치	EV	68	77400	CHILD,PET	OK	0	MOCK0003/01=2:02;MOCK0003/02=2:02	-	RECOMMEND	geumgang	jukam	-
+규격-모름	EV	68	77400	CHILD,PET	OK	0	MOCK0003/01=2:77;MOCK0003/02=2:77	-	RECOMMEND	geumgang	jukam	hwanggan
+추천-거절	EV	68	77400	CHILD,PET	OK	0	-	hwanggan	RECOMMEND	geumgang	jukam	-
+모두-거절	EV	68	77400	CHILD,PET	OK	0	-	hwanggan,geumgang,jukam,gimcheon	NO_RELIABLE	-	-	-
+SOC-감소	EV	55	77400	CHILD,PET	OK	0	-	-	RECOMMEND	geumgang	jukam	-
+닿는곳-없음	EV	10	77400	CHILD,PET	OK	0	-	-	NO_RELIABLE	-	-	-
+가까운-황간-사용중	EV	32	77400	CHILD,PET	OK	190	MOCK0003/01=3;MOCK0003/02=3	-	RECOMMEND	gimcheon	hwanggan	-

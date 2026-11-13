@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 화면은 Compose 가 그린다. 여기서는 첫 프레임 전 배경만 Pleos 다크 배경으로 맞춘다 -->
+    <style name="Theme.CommaDrive" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/bg</item>
+    </style>
+</resources>
